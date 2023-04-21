@@ -1,5 +1,5 @@
 import streamlit as st
-from src.data_loader import test_load
+
 
 st.set_page_config(
     page_title="King County House Sales",
@@ -9,4 +9,4 @@ st.set_page_config(
 
 st.title('🏘️ Home')
 st.write('House prices analysis app')
-st.markdow('test')
+st.markdown('test')
