@@ -42,15 +42,28 @@ def price_metric(temp, price_mod, price_mod_label):
 	return int(round(temp[price_mod_label[price_mod]].mean(), 0))
 
 def price_metric_delta(temp, df, price_mod, price_mod_label):
-	value = temp[price_mod_label[price_mod]].mean()
 	total_average = df[price_mod_label[price_mod]].mean()
-	delta = value - total_average
+	delta = temp[price_mod_label[price_mod]].mean() - total_average
 	return str(round((delta/total_average)*100, 1)) + ' %'
+
+def metrics(temp, df):
+	transactions = len(temp)
+	transactions_delta = round((transactions / len(df))*100,2)
+
+	house_area = int(round(temp['sqft_living'].mean(),0))
+	house_area_delta = round((house_area / df['sqft_living'].mean())*100,1)
+
+	lot_area = int(round(temp['sqft_lot'].mean(),0))
+	lot_area_delta = round((lot_area / df['sqft_lot'].mean())*100,1)
+
+	return transactions, str(transactions_delta) + ' %', house_area, str(house_area_delta) + ' %', lot_area, str(lot_area_delta) + ' %'
 
 
 def plot_temp_df(df, intervals, interval_option, price_mod, price_mod_label):
      st.line_chart(data=df.resample(intervals[interval_option], on='date')[price_mod_label[price_mod]].mean())
-     
+
+def plot_temp_transactions(df, intervals, interval_option):
+     st.line_chart(data=df.resample(intervals[interval_option], on='date')['id'].count())
 
 def map_plot(df):
     fig = px.density_mapbox(df, lat='lat', lon='long', z='avg_price_sqft', 
@@ -95,29 +108,48 @@ def main():
 	temp = create_temp_df(df, start_date, end_date, price, sqft_living, sqft_lot, bedrooms, waterfront, yr_built)
 	
 	st.markdown('#')
-	st.markdown('#### 📈 Plot')
+	st.markdown('#### 📈 Plot and metrics')
 	
-	col_metric1, col_metric2 = st.columns([3,2])
+	price_mod = st.radio('Calculate average price per:',('transaction','sqft','number of bedrooms'), horizontal=True)
+	price_mod_label = {'transaction':'price','sqft':'avg_price_sqft','number of bedrooms':'avg_price_bedroom'}
+
+	transactions, transactions_delta, house_area, house_area_delta, lot_area, lot_area_delta = metrics(temp, df)
+	
+	col_metric1, col_metric2, col_metric3, col_metric4 = st.columns(4)
 
 	with col_metric1:
-		price_mod = st.radio('Calculate average price per:',('transaction','sqft','number of bedrooms'), horizontal=True)
-		price_mod_label = {'transaction':'price','sqft':'avg_price_sqft','number of bedrooms':'avg_price_bedroom'}
+		st.metric(('Average price $'), value=price_metric(temp, price_mod, price_mod_label), delta=price_metric_delta(temp, df, price_mod, price_mod_label), delta_color="inverse")
 
 	with col_metric2:
-		st.metric(('Average price $'), value=price_metric(temp, price_mod, price_mod_label), delta=price_metric_delta(temp, df, price_mod, price_mod_label), delta_color="inverse")
+		st.metric(('Number of transactions'), value=transactions, delta=transactions_delta, delta_color='off')
+
+	with col_metric3:
+		st.metric(('Average house area'), value=house_area, delta=house_area_delta)
+
+	with col_metric4:
+		st.metric(('Average lot area'), value=lot_area, delta=lot_area_delta)
 
 	st.markdown('#####')
 
 	intervals = {'daily':'D','weekly':'W-MON','monthly':'MS'}
 	interval_option = st.radio('Choose time interval',('daily','weekly','monthly'), horizontal=True)
 
-	st.markdown('#####')
-	st.write('###### Average price per ', price_mod,)
+	tab1, tab2 = st.tabs([':dollar: Average price', ':handshake: Number of transactions'])
 
-	if interval_option == 'monthly':
-		st.bar_chart(data=temp.resample('MS', on='date')[price_mod_label[price_mod]].mean())
-	else:
-		plot_temp_df(temp,intervals, interval_option, price_mod, price_mod_label)
+	with tab1:
+		st.markdown('#####')
+		st.write('###### Average price per ', price_mod,)
+
+		if interval_option == 'monthly':
+			st.bar_chart(data=temp.resample('MS', on='date')[price_mod_label[price_mod]].mean())
+		else:
+			plot_temp_df(temp,intervals, interval_option, price_mod, price_mod_label)
+
+	with tab2:
+		if interval_option == 'monthly':
+			st.bar_chart(data=temp.resample('MS', on='date')['id'].count())
+		else:
+			plot_temp_transactions(temp, intervals, interval_option)
 
 	st.markdown('#####')
 	st.markdown('#### 🗺️ Map')
