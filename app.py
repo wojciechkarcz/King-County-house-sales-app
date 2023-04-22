@@ -80,11 +80,11 @@ def map_plot(df):
         hover_name='id', size_max=18, zoom=9, 
         color_continuous_scale=px.colors.cyclical.IceFire, 
         mapbox_style="carto-positron", height=600, opacity=0.7,
-		hover_data=['sqft_lot','condition','yr_built','view'])
+		hover_data=['sqft_lot','condition','view','yr_built','avg_price_sqft'])
     st.plotly_chart(fig, use_container_width=True)
 
 def main():
-	st.set_page_config(page_title="Price | King County", page_icon=":dollar:", layout='centered')
+	st.set_page_config(page_title="House sales in King County", page_icon="🏘️", layout='centered')
 	st.title('🏘️ House sales in King County')
 
 	df = data_load()
