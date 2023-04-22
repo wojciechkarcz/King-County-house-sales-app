@@ -6,6 +6,7 @@ from datetime import datetime
 import plotly.express as px
 from src.data_loader import load_csv_data
 
+
 @st.cache_data
 def data_load():
     csv = 'data/kc_house_data.csv'
@@ -44,6 +45,7 @@ def create_temp_df(df, start_date, end_date, price, sqft_living, sqft_lot, bedro
         (df['waterfront'] == waterfront) &
 		(df['yr_built'] >= yr_built[0]) &
 		(df['yr_built'] <= yr_built[1])]
+	
 	temp = temp.sort_values(by='date')
 
 	return temp
@@ -57,7 +59,8 @@ def map_plot(df):
     fig = px.scatter_mapbox(df, lat='lat', lon='long', color='price', size='sqft_living', 
         hover_name='id', size_max=18, zoom=9, 
         color_continuous_scale=px.colors.cyclical.IceFire, 
-        mapbox_style="carto-positron", height=600)
+        mapbox_style="carto-positron", height=600, opacity=0.7,
+		hover_data=['sqft_lot','condition','yr_built','view'])
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -108,9 +111,12 @@ def main():
 
 
 	if interval_option == 'monthly':
-		st.bar_chart(data=temp.resample(intervals[interval_option], on='date')['id'].count())
+		st.bar_chart(data=temp.resample('MS', on='date')['id'].count())
 	else:
 		plot_temp_df(temp,intervals, interval_option)
+
+	fig2 = px.histogram(temp, x=temp['price'], nbins=50)
+	st.plotly_chart(fig2, use_container_width=True)
 
 	st.markdown('#####')
 	st.markdown('#### 🗺️ Map')
