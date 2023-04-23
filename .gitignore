@@ -1,5 +1,5 @@
 ./streamlit
-src/postgrsql.py
+/src/data_loader.py
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
