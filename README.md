@@ -45,7 +45,7 @@ In addition, houses that meet the given criteria are displayed on an interactive
 
 # How it works?
 
-The application was written entirely in Python, mainly using the Streamlit framework (link) and deployed on their server. Data on house sales are stored in the PostgreSQL database temporarily created for the project.
+The application was written entirely in Python, mainly using the [Streamlit](https://streamlit.io/) framework and deployed on their server. Data on house sales are stored in the PostgreSQL database temporarily created for the project.
 
 **Website Performance**  
 The main application file `app.py` connects to the database every time it is started, retrieves data and stores it in the cache (function/decorator @st.cache_data). Therefore, there is no need to connect to the database every time you change parameters or interact with the website.
