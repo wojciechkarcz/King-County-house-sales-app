@@ -1,10 +1,11 @@
 import pandas as pd
 import psycopg2
+import streamlit as st
 
-db = 'kchouses'
-user = 'test'
-password = 'NgepcUzuHl1ANwUeSsCqsQOXWrF4Ii9R'
-host = 'dpg-ch2e58l269v61fcvc6mg-a.frankfurt-postgres.render.com'
+db = st.secrets['db']
+user = st.secrets['user']
+password = st.secrets['password']
+host = st.secrets['host']
 
 column_names = ['id', 'date', 'price', 'bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 'waterfront', 'view', 'condition',
     'grade', 'sqft_above', 'sqft_basement', 'yr_built', 'yr_renovated', 'zipcode', 'lat', 'long', 'sqft_living15', 'sqft_lot15']
