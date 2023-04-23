@@ -6,7 +6,7 @@ The "House sales in King County" web application is used to analyze historical d
 
 <br>
 <img src='img/params.png' width=600>
-<br><br>
+<br>
 
 The user can view the data using many different filters, such as:
 - time range
@@ -19,7 +19,7 @@ The user can view the data using many different filters, such as:
 
 <br>
 <img src='img/metrics.png' width=600>
-<br><br>
+<br>
 
 Then, based on the selected criteria, the following information is displayed:
 - average price per transaction, sqft and bedrooms
@@ -30,18 +30,18 @@ Below are small indicators that indicate the percentage change in relation to th
 
 <br>
 <img src='img/chart.png' width=600>
-<br><br>
+<br>
 
 Below, charts are automatically generated showing average prices and the number of transactions filtered by the time interval (daily, weekly, monthly). There is also a tab with a histogram showing the distribution of house prices defined by user-defined criteria.
 
 <br>
 <img src='img/map.png' width=600>
-<br><br>
+<br>
 
 
 In addition, houses that meet the given criteria are displayed on an interactive map. The color indicates the price and the size of the marker refers to the area of the house. When hovering over a specific marker, a label with more data appears. At the very end there is a table with raw data.
 
-<br><br>
+<br>
 
 # How it works?
 
@@ -59,7 +59,7 @@ In the `/src` folder there is a `data_loader.py` file containing all the functio
 **Security**  
 In the `.streamlit` folder, there is a `secrets.toml` file that stores the credentials to connect to the database. Thanks to the use of the Streamlit *st.secrets function*, this data is not exposed in any way.
 
-<br><br>
+<br>
 
 # Usage
 
