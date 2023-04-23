@@ -2,16 +2,15 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 import plotly.express as px
-from src.data_loader import load_csv_data
+from src.data_loader import load_data_sql
+
 
 @st.cache_data
 def data_load():
-    csv = 'data/kc_house_data.csv'
-    df = load_csv_data(csv)
-    df['avg_price_sqft'] = round(df['price'] / df['sqft_living'],2)
-    df['avg_price_bedroom'] = df.apply(lambda row: calculate_avg_price_bedroom(row), axis=1)
-    
-    return df
+	df = load_data_sql()
+	df['avg_price_sqft'] = round(df['price'] / df['sqft_living'],2)
+	df['avg_price_bedroom'] = df.apply(lambda row: calculate_avg_price_bedroom(row), axis=1)
+	return df
 
 def calculate_avg_price_bedroom(row):
 	x = row['bedrooms']
