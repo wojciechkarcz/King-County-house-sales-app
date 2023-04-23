@@ -13,8 +13,8 @@ def get_metrics(df):
     '''Getting some basic metrics from df''' 
     df = df.sort_values(by='date')
     total = len(df)
-    avg_price = round(df['price'].mean(),2)
-    avg_area = round(df['sqft_living'].mean(),2)
+    avg_price = int(round(df['price'].mean(),0))
+    avg_area = int(round(df['sqft_living'].mean(),0))
     return total, avg_price, avg_area
 
 
@@ -28,8 +28,9 @@ def main():
 
     df = data_load()
 
-    st.image('img/kingcounty.jpg', caption='credit: Wikimedia', width=600)
+    st.markdown('##')
 
+    st.image('img/kingcounty.jpg', caption='credit: Wikimedia', width=600)
 
     st.markdown('This web application is used to analyze data on home sales in King County, USA. ' +
                 'The data has been made available for public use and can be downloaded from the website:  ' +
