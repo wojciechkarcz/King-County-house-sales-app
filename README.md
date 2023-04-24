@@ -2,7 +2,7 @@
 
 The "House sales in King County" web application is used to analyze historical data on home sales in King County, Washington, USA in 2014-15. The application works online on the website at:
 
-[kc-housesales.streamlit.app](hhttps://kc-housesales.streamlit.app/)
+[kc-housesales.streamlit.app](https://kc-housesales.streamlit.app/)
 
 <br>
 <img src='img/params.png' width=600>
