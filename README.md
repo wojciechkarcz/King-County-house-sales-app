@@ -2,7 +2,7 @@
 
 The "House sales in King County" web application is used to analyze historical data on home sales in King County, Washington, USA in 2014-15. The application works online on the website at:
 
-[ks-house-sales.streamlit.app](https://ks-house-sales.streamlit.app/)
+[kc-housesales.streamlit.app](https://kc-housesales.streamlit.app/)
 
 <br>
 <img src='img/params.png' width=600>
@@ -66,7 +66,7 @@ In the `.streamlit` folder, there is a `secrets.toml` file that stores the crede
 
 The application can be viewed without any restrictions on the website:
 
-[ks-house-sales.streamlit.app](https://ks-house-sales.streamlit.app/)
+[kc-housesales.streamlit.app](https://kc-housesales.streamlit.app/)
 <br><br>
 
 ### App installation
