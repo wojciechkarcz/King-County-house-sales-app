@@ -25,7 +25,8 @@ Then, based on the selected criteria, the following information is displayed:
 - average price per transaction, sqft and bedrooms
 - number of transactions in the selected period (the percentage share in relation to all transactions is displayed in gray below)
 - the average area ofthe house
-- average lot area
+- average lot area  
+
 Below are small indicators that indicate the percentage change in relation to the average value for the entire period (except for the number of transactions).
 
 <br>
@@ -53,7 +54,7 @@ The main application file `app.py` connects to the database every time it is sta
 **Sync**  
 In addition, the application on the Streamlit server is linked to this repository on GitHub and any change/update of the code here causes an automatic change also on the server and, as a result, on the application's website.
 
-**Load date**  
+**Data ingestion**  
 In the `/src` folder there is a `data_loader.py` file containing all the functions related to downloading data from the PostgreSQL database.
 
 **Security**  
@@ -95,9 +96,7 @@ Streamlit will then create a local server and the application will run at `local
 
 ### Docker
 
-In this repository there is also a Dockerfile that allows you to build an image with the application locally.
-
-Being in the main application directory, type in the terminal:
+In this repository there is also a Dockerfile that allows you to build an image with the application locally. You need to `git clone` the repostiory and being in the main application directory, type in the terminal:
 
 ```
 docker build -t khouse .
